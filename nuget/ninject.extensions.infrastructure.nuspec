@@ -1,18 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
   <metadata>
+
     <id>ninject.extensions.infrastructure</id>
-    <version>1.0.0.3</version>
+
+    <version>2.0.0.0</version>
+
     <authors>AaronHS</authors>
+
     <owners>AaronHS</owners>
+
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
     <description>Provides some infrastructure support over Ninject</description>
-    <releaseNotes>First Release</releaseNotes>
+
+    <releaseNotes>upgraded to ninject 3</releaseNotes>
+
     <copyright>Copyright 2012</copyright>
+
     <dependencies>
-      <dependency id="Ninject" version="[2.2.1.4]" />
-      <dependency id="Ninject.Extensions.Conventions" version="[2.2.0.5]" />
+
+      <dependency id="Ninject" version="[3.0.1.10]" />
+
+      <dependency id="Ninject.Extensions.Conventions" version="[3.0.0.11]" />
+
     </dependencies>
+
   </metadata>
+
 </package>

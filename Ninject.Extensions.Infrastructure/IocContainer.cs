@@ -11,35 +11,25 @@ namespace Ninject.Extensions.Infrastructure
 
         public IKernel Resolver { get; private set; }
 
-        public Func<string, TInterface> ResolveUsingKey<TInterface>() where TInterface : class
-        {
-            return key => ServiceLocatorProvider.Resolver.GetInstance<TInterface>(key);
-        }
-
-        public IocContainer WireDependenciesInAssemblyContaining<T>()
-        {
-            ScanAssembliesUsing(x => x.FromAssemblyContaining(typeof(T)));
-            return this;
-        }
-
         public IocContainer WireDependenciesInAssemblyMatching(string assemblyName)
         {
-            ScanAssembliesUsing(x => x.FromAssembliesMatching(assemblyName));
+            ScanAssembliesUsing(x => x.Load(assemblyName));
             return this;
         }
 
         public IocContainer WireDependenciesInAssemblies(params string[] assemblies)
         {
-            return WireDependenciesInAssemblies(assemblies as IEnumerable<string>);
+            ScanAssembliesUsing(x => x.Load(assemblies));
+            return this;
         }
 
         public IocContainer WireDependenciesInAssemblies(IEnumerable<string> assemblies)
         {
-            ScanAssembliesUsing(x => x.From(assemblies));
+            ScanAssembliesUsing(x => x.Load(assemblies));
             return this;
         }
 
-        private void ScanAssembliesUsing(Action<AssemblyScanner> assemblyScanningAlgorithm)
+        private void ScanAssembliesUsing(Action<StandardKernel> applytoKernel)
         {
             if (DontHaveAResolverYet)
             {
@@ -49,11 +39,7 @@ namespace Ninject.Extensions.Infrastructure
                     {
                         var kernel = new StandardKernel(new NinjectSettings { LoadExtensions = false, InjectNonPublic = true });
 
-                        kernel.Scan(x =>
-                        {
-                            assemblyScanningAlgorithm(x);
-                            x.AutoLoadModules();
-                        });
+                        applytoKernel(kernel);
 
                         SetKernel(kernel);
                     }

@@ -20,7 +20,7 @@ namespace Ninject.Extensions.Infrastructure.Resolution
             {
                 if (resolver == null)
                 {
-                    throw new InvalidOperationException("the ServiceLocatorProvider hasnt been registered yet.");
+                    throw new InvalidOperationException("The ServiceLocatorProvider hasn't been registered yet.");
                 }
 
                 return resolver;
