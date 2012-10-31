@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ninject.Extensions.Conventions;
+using System.Linq;
+using System.Reflection;
 using Ninject.Extensions.Infrastructure.Resolution;
 
 namespace Ninject.Extensions.Infrastructure
@@ -13,19 +14,19 @@ namespace Ninject.Extensions.Infrastructure
 
         public IocContainer WireDependenciesInAssemblyMatching(string assemblyName)
         {
-            ScanAssembliesUsing(x => x.Load(assemblyName));
+            ScanAssembliesUsing(x => x.Load(Assembly.Load(assemblyName)));
             return this;
         }
 
         public IocContainer WireDependenciesInAssemblies(params string[] assemblies)
         {
-            ScanAssembliesUsing(x => x.Load(assemblies));
+            ScanAssembliesUsing(x => x.Load(assemblies.Select(Assembly.Load)));
             return this;
         }
 
         public IocContainer WireDependenciesInAssemblies(IEnumerable<string> assemblies)
         {
-            ScanAssembliesUsing(x => x.Load(assemblies));
+            ScanAssembliesUsing(x => x.Load(assemblies.Select(Assembly.Load)));
             return this;
         }
 
